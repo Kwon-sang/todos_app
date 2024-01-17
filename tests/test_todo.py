@@ -3,6 +3,7 @@ import pytest
 from httpx import AsyncClient
 
 
+# Test Setup Code
 async def create_todo(client: AsyncClient) -> dict:
     request_body = {
         'title': 'Test Todo',
@@ -14,6 +15,7 @@ async def create_todo(client: AsyncClient) -> dict:
     return response.json()
 
 
+# Test Code
 @pytest.mark.anyio
 async def test_create_todo(client: AsyncClient):
     # Given

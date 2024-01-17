@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import APIRouter, HTTPException, Path, Body
 
 from src.database import DBDep
-from src.models import Todo, User
-from src.schemas import TodoCreate, TodoUpdate
+from src.todos.models import Todo
+from src.todos.schemas import TodoCreate, TodoUpdate
 
 router = APIRouter(prefix="/todos", tags=["TODOS"])
 

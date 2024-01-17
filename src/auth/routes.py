@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from src.schemas import UserCreate
-from src.models import User
+from src.auth.models import User
+from src.auth.schemas import UserCreate
 from src.database import DBDep
 
 router = APIRouter(prefix="/users")
