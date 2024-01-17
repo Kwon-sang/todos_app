@@ -1,11 +1,11 @@
 from fastapi import FastAPI
+from sqlmodel import SQLModel
 
-from .models import SQLModel
 from .database import engine
+from .routes import todo
+from . import models
 
-app = FastAPI()
+SQLModel.metadata.create_all(bind=engine)
 
-
-@app.on_event("startup")
-def startup():
-    SQLModel.metadata.create_all(bind=engine)
+app = FastAPI(title="TODOS APIs")
+app.include_router(todo.router)
