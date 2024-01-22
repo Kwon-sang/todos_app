@@ -1,49 +1,59 @@
 from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Path
+from fastapi import APIRouter, Path, HTTPException
 
-from src.database import DBDep
-from src.todos.models import Todo
-from src.todos.schemas import TodoCreate, TodoUpdate
+from . import models, schemas
+from src.database import DBDependency
+from src.auth.service import AuthDependency
 
-from .service import get_todo_by_id
-
-router = APIRouter(prefix="/todos", tags=["TODOS"])
+router = APIRouter(prefix="/todos", tags=["Todos APIs"])
 
 
 @router.get("", status_code=200)
-async def read_all(db: DBDep) -> list[Todo]:
-    return db.query(Todo).all()
+async def retrieve_all(db: DBDependency,
+                       auth: AuthDependency) -> list[models.Todo]:
+    return db.query(models.Todo).filter(models.Todo.owner_id == auth.user_id).all()
 
 
 @router.post("", status_code=201)
-async def create_todo(db: DBDep, body: TodoCreate) -> Todo:
-    new_todo = Todo(**body.model_dump())
+async def create_todo(db: DBDependency,
+                      auth: AuthDependency,
+                      body: schemas.TodoCreate) -> models.Todo:
+    new_todo = models.Todo(owner_id=auth.user_id, **body.model_dump())
     db.add(new_todo)
     db.commit()
     return new_todo
 
 
 @router.get("/{todo_id}", status_code=200)
-async def read_todo(db: DBDep,
-                    todo_id: Annotated[int, Path(gt=0)]) -> Todo:
-    return await get_todo_by_id(db, todo_id)
+async def retrieve_todo(db: DBDependency,
+                        auth: AuthDependency,
+                        todo_id: Annotated[int, Path(gt=0)]) -> models.Todo:
+    todo = db.query(models.Todo.id == todo_id,
+                    models.Todo.owner_id == auth.user_id).first()
+    if todo:
+        return todo
+    raise HTTPException(status_code=404, detail="Todo item is not found")
 
 
 @router.put("/{todo_id}", status_code=204)
-async def update_todo(db: DBDep,
+async def update_todo(db: DBDependency,
+                      auth: AuthDependency,
                       todo_id: Annotated[int, Path(gt=0)],
-                      body: TodoUpdate) -> None:
-    todo = await get_todo_by_id(db, todo_id)
-    for key, value in body.model_dump(exclude_unset=True).items():
-        setattr(todo, key, value)
-    db.add(todo)
-    db.commit()
+                      body: schemas.TodoUpdate) -> None:
+    if (db.query(models.Todo).
+            filter(models.Todo.id == todo_id, models.Todo.owner_id == auth.user_id).
+            update(body.model_dump())):
+        return db.commit()
+    raise HTTPException(status_code=404, detail="Todo item is not found")
 
 
 @router.delete("/{todo_id}", status_code=204)
-async def delete_todo(db: DBDep,
+async def delete_todo(db: DBDependency,
+                      auth: AuthDependency,
                       todo_id: Annotated[int, Path(gt=0)]) -> None:
-    todo = await get_todo_by_id(db, todo_id)
-    db.delete(todo)
-    db.commit()
+    if (db.query(models.Todo).
+            filter(models.Todo.id == todo_id, models.Todo.owner_id == auth.user_id).
+            delete()):
+        return db.commit()
+    raise HTTPException(status_code=404, detail="Todo item is not found")
