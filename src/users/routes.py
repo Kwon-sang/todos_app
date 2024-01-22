@@ -2,8 +2,9 @@ from typing import Annotated
 
 from fastapi import APIRouter, Path, HTTPException
 
-from . import models, schemas
 from . import service
+from .models import User
+from .schemas import UserInfo, UserInfoUpdate, UserCreate, UserPasswordChange
 from src.database import DBDependency
 from src.auth.service import AuthDependency
 
@@ -12,8 +13,8 @@ router = APIRouter(prefix='/users', tags=["User APIs"])
 
 @router.post("", status_code=201)
 async def create_user(db: DBDependency,
-                      body: schemas.UserCreate) -> models.User:
-    user = models.User(**body.model_dump())
+                      body: UserCreate) -> User:
+    user = User(**body.model_dump())
     db.add(user)
     db.commit()
     return user
@@ -22,12 +23,12 @@ async def create_user(db: DBDependency,
 @router.get("/{user_id}", status_code=200)
 async def retrieve_user_info(db: DBDependency,
                              auth: AuthDependency,
-                             user_id: Annotated[int, Path(gt=0)]) -> schemas.UserInfo:
+                             user_id: Annotated[int, Path(gt=0)]) -> UserInfo:
     # Verification of authority accessing a resource
     service.verify_current_user(auth.user_id, user_id)
     # Retrieve user info
-    if user := (db.query(models.User).
-                filter(models.User.id == auth.user_id).
+    if user := (db.query(User).
+                filter(User.id == auth.user_id).
                 first()):
         return user
     raise HTTPException(status_code=404, detail="User is not found")
@@ -37,7 +38,7 @@ async def retrieve_user_info(db: DBDependency,
 async def change_password(db: DBDependency,
                           auth: AuthDependency,
                           user_id: Annotated[int, Path(gt=0)],
-                          body: schemas.UserPasswordChange) -> None:
+                          body: UserPasswordChange) -> None:
     # Verification of authority accessing a resource
     service.verify_current_user(auth.user_id, user_id)
     # Validate correspondence between new passwords
@@ -58,12 +59,12 @@ async def change_password(db: DBDependency,
 async def change_user_info(db: DBDependency,
                            auth: AuthDependency,
                            user_id: Annotated[int, Path(gt=0)],
-                           body: schemas.UserInfoUpdate) -> None:
+                           body: UserInfoUpdate) -> None:
     # Verification of authority accessing a resource
     service.verify_current_user(auth.user_id, user_id)
     # Update user's info
-    if (db.query(models.User).
-            filter(models.User.id == auth.user_id).
+    if (db.query(User).
+            filter(User.id == auth.user_id).
             update(body.model_dump(exclude_unset=True))):
         return db.commit()
     raise HTTPException(status_code=404, detail="User is not found")

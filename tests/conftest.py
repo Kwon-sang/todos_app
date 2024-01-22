@@ -38,10 +38,11 @@ async def client() -> AsyncGenerator:
         yield ac
 
 
+# Data Configurations
 @pytest.fixture
-async def create_user(client: AsyncClient) -> None:
+async def create_user(client: AsyncClient) -> dict:
     """
-    토큰 생성 테스트를 위한 유저 데이터 생성 Fixture
+    테스트를 위한 기본 유저를 DB에 생성합니다.
     """
     user_create_request_body = {
         "email": "test@google.com",
@@ -50,4 +51,37 @@ async def create_user(client: AsyncClient) -> None:
         "first_name": "test",
         "last_name": "user"
     }
-    await client.post(url="/users", json=user_create_request_body)
+    response = await client.post(url="/users", json=user_create_request_body)
+    return response.json()
+
+
+@pytest.fixture
+async def issue_token(client: AsyncClient, create_user) -> dict:
+    """
+    유저 정보를 바탕으로 생성된 토큰을 발행합니다.
+    """
+    data = {
+        "username": "testuser",
+        "password": "1234"
+    }
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+    response = await client.post(url="/auth", data=data, headers=headers)
+    return response.json()
+
+
+@pytest.fixture
+async def create_todo(client: AsyncClient, create_user, issue_token) -> dict:
+    request_body = {
+        'title': 'Test Todo',
+        'description': 'Test Description',
+        'priority': 1,
+        'complete': False,
+        'owner_id': 1}
+    header = {
+        "Authorization": f"{issue_token['token_type']} {issue_token['access_token']}"
+    }
+    response = await client.post(url="/todos", json=request_body, headers=header)
+    return response.json()
+
