@@ -36,3 +36,18 @@ async def db():
 async def client() -> AsyncGenerator:
     async with AsyncClient(app=app, base_url="http://test") as ac:
         yield ac
+
+
+@pytest.fixture
+async def create_user(client: AsyncClient) -> None:
+    """
+    토큰 생성 테스트를 위한 유저 데이터 생성 Fixture
+    """
+    user_create_request_body = {
+        "email": "test@google.com",
+        "username": "testuser",
+        "password": "1234",
+        "first_name": "test",
+        "last_name": "user"
+    }
+    await client.post(url="/users", json=user_create_request_body)
