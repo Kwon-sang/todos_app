@@ -6,7 +6,7 @@ from httpx import AsyncClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from src.database import get_db
+from src.database import DB
 from src.main import app
 
 DATABASE_URL = "sqlite:///./test.db"

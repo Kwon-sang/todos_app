@@ -31,12 +31,11 @@ class User(SQLModel, table=True):
     def __init__(self, **data: Any) -> None:
         if "password" in data:
             password = data.pop("password")
-            data["hashed_password"] = bcrypt_context.hash(password)
+            data["hashed_password"] = self.hash_password(password)
         super().__init__(**data)
 
-    def change_password(self, new_password) -> None:
-        hashed_password = bcrypt_context.hash(new_password)
-        setattr(self, "hashed_password", hashed_password)
+    def hash_password(self, password) -> str:
+        return bcrypt_context.hash(password)
 
     def verify_password(self, plain_password):
         return bcrypt_context.verify(plain_password, self.hashed_password)
