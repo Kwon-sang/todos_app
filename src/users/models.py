@@ -2,18 +2,9 @@ import enum
 from typing import Optional, Any
 
 from passlib.context import CryptContext
-from sqlalchemy import Enum
 from sqlmodel import SQLModel, Field
 
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
-
-
-class UserRole(str, enum.Enum):
-    ADMIN = "admin"
-    USER = "user"
-
-    def __repr__(self):
-        return self.value
 
 
 class User(SQLModel, table=True):
@@ -26,7 +17,7 @@ class User(SQLModel, table=True):
     first_name: str
     last_name: str
     is_active: bool = Field(default=True)
-    role: UserRole = Field(default=UserRole.USER)
+    role: str = Field(default="user")
 
     def __init__(self, **data: Any) -> None:
         if "password" in data:

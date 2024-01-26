@@ -14,7 +14,7 @@ router = APIRouter(prefix='/users', tags=["User APIs"])
 
 @router.post("", status_code=201)
 async def create_user(body: UserCreate) -> User:
-    return await DB.create(User, body=body)
+    return await DB.create(User, body)
 
 
 @router.get("/{user_id}", status_code=200)

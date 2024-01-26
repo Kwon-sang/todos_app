@@ -14,14 +14,13 @@ async def test_create_todo(client: AsyncClient, issue_token: dict):
         'title': 'Test Todo',
         'description': 'Test Description',
         'priority': 1,
-        'complete': False,
-        'owner_id': 1}
+        'complete': False}
     header = {
         "Authorization": f"{issue_token['token_type']} {issue_token['access_token']}"
     }
     # When
     response = await client.post(url="/todos", json=request_body, headers=header)
-    expected = {'id': 1, **request_body}
+    expected = {'id': 1, **request_body, "owner_id": 1}
     # Then
     assert response.status_code == 201
     assert response.json() == expected

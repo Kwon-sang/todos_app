@@ -11,4 +11,4 @@ class Todo(SQLModel, table=True):
     description: str
     priority: int
     complete: bool = Field(default=False)
-    owner_id: int = Field(foreign_key="users.id")
+    owner_id: int = Field(default=None, foreign_key="users.id")

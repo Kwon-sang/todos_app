@@ -4,7 +4,6 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
-from . import settings
 from .schemas import Token
 from .service import authenticate_user, create_access_token
 
@@ -12,7 +11,7 @@ from .service import authenticate_user, create_access_token
 router = APIRouter(tags=["Authorization/Authentication APIs"])
 
 
-@router.post(path=settings.TOKEN_URL, status_code=200)
+@router.post("/auth", status_code=200)
 async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:
     user = await authenticate_user(username=form_data.username, password=form_data.password)
     token: str = create_access_token(user_id=user.id,
