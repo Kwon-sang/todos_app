@@ -134,4 +134,32 @@ retrieve_all(User, id=some_id, owner=some_user_id)
 Session.query(User).filter(id == some_id, owner == some_user_id).all() 
 ```
 
+이 기능은 다음과 같은 함수에 의해 구현됩니다. 
+이 함수는 조건에 대한 인자를 키워드 인자로 받아, DB Session `filter(options)` 에서 사용가능한 형태로 변형하여 주입합니다.
+필터링 조건은 사용자에 따라 동적으로 변경되기에, `list`에 변형된 조건 인자를 `eval`로 담아 파라미터로 실행가능한 상태를 유지합니다. 
+```
+def filtering_condition_creator(model, **kwargs) -> list[Any]:
+    """
+    키워드 인자를 filter 인자로 사용할 수 있게 변환하는 함수 입니다.
+    eval을 통해 평가된 조건 인자를 리스트에 저장하여 반환합니다.
+    ex)
+    filtering = filtering_condition_creator(User, id=1, username="kim")
+    filtering -> [eval(User.id == 1), eval(User.username == "kim")]
+    Session.query(User).filter(*filtering) -> Session.query(User).filter(User.id == 1, User.username == "kim")
+    """
+    conditions = []
+    for key, value in kwargs.items():
+        if key not in model.model_fields:
+            raise KeyError(f"Field name {key!r} is not found in {model.__name__}")
+        conditions.append(eval(f"model.{key} == {value!r}"))
+    return conditions
+
+# 함수 호출
+conditions = filtering_condition_creator(model, **kwargs)
+# 필터링 조건 실행
+result = db.query(model).filter(*conditions).first()
+```
+
+
+
 
