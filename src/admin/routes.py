@@ -18,13 +18,13 @@ def validate_role_admin(user_role):
 @router.get("/todos", status_code=200)
 async def retrieve_all_todo(auth: AuthDependency) -> list[Todo]:
     validate_role_admin(auth.role)
-    return await DB.retrieve_all(Todo)
+    return DB.retrieve_all(Todo)
 
 
 @router.get("/users", status_code=200)
 async def retrieve_all_user(auth: AuthDependency) -> list[User]:
     validate_role_admin(auth.role)
-    return await DB.retrieve_all(User)
+    return DB.retrieve_all(User)
 
 
 @router.patch("/users/{user_id}/role", status_code=204)
@@ -32,7 +32,7 @@ async def change_user_role(auth: AuthDependency,
                            user_id: int,
                            role: Annotated[str, Body(embed=True)]):
     validate_role_admin(auth.role)
-    await DB.patch(User, target={"role": role}, id=user_id)
+    DB.patch(User, target={"role": role}, id=user_id)
 
 
 @router.patch("/users/{user_id}/active", status_code=204)
@@ -40,4 +40,4 @@ async def change_user_activation_state(auth: AuthDependency,
                                        user_id: int,
                                        is_active: Annotated[bool, Body(embed=True)]):
     validate_role_admin(auth.role)
-    await DB.patch(User, target={"is_active": is_active}, id=user_id)
+    DB.patch(User, target={"is_active": is_active}, id=user_id)

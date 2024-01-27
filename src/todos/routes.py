@@ -13,29 +13,29 @@ router = APIRouter(prefix="/todos", tags=["Todos APIs"])
 
 @router.get("", status_code=200)
 async def retrieve_all(auth: AuthDependency) -> list[Todo]:
-    return await DB.retrieve_all(Todo, owner_id=auth.user_id)
+    return DB.retrieve_all(Todo, owner_id=auth.user_id)
 
 
 @router.post("", status_code=201)
 async def create_todo(auth: AuthDependency,
                       body: TodoCreate) -> Todo:
-    return await DB.create(Todo, body, owner_id=auth.user_id)
+    return DB.create(Todo, body, owner_id=auth.user_id)
 
 
 @router.get("/{todo_id}", status_code=200)
 async def retrieve_todo(auth: AuthDependency,
                         todo_id: Annotated[int, Path(gt=0)]):
-    return await DB.retrieve_one(Todo, id=todo_id, owner_id=auth.user_id)
+    return DB.retrieve_one(Todo, id=todo_id, owner_id=auth.user_id)
 
 
 @router.put("/{todo_id}", status_code=204)
 async def update_todo(auth: AuthDependency,
                       todo_id: Annotated[int, Path(gt=0)],
                       body: TodoUpdate) -> None:
-    await DB.update(Todo, body, id=todo_id, owner_id=auth.user_id)
+    DB.update(Todo, body, id=todo_id, owner_id=auth.user_id)
 
 
 @router.delete("/{todo_id}", status_code=204)
 async def delete_todo(auth: AuthDependency,
                       todo_id: Annotated[int, Path(gt=0)]) -> None:
-    await DB.delete(Todo, id=todo_id, owner_id=auth.user_id)
+    DB.delete(Todo, id=todo_id, owner_id=auth.user_id)

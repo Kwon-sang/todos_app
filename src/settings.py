@@ -1,17 +1,17 @@
 from functools import lru_cache
 from typing import Optional
 
-from dotenv import load_dotenv
+import dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-load_dotenv()
+dotenv.load_dotenv()
 
 
 class DefaultSettings(BaseSettings):
     ENV_STATE: Optional[str] = None
     DATABASE_URL: Optional[str] = None
 
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(env_file="../.env", extra="ignore")
 
 
 class DevSettings(DefaultSettings):

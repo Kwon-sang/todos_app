@@ -1,5 +1,6 @@
 import os
 os.environ["ENV_STATE"] = "test"
+
 from typing import AsyncGenerator
 
 import pytest
@@ -10,16 +11,13 @@ from src import database
 from src.main import app
 
 
-
 @pytest.fixture(scope="session")
 def anyio_backend():
-    # app.dependency_overrides[get_db] = get_test_db
     return 'asyncio'
 
 
 @pytest.fixture(autouse=True)
 async def db():
-    # engine = create_engine(url="sqlite:///test.db", echo=True, connect_args={"check_same_thread": False})
     SQLModel.metadata.drop_all(bind=database.engine)
     SQLModel.metadata.create_all(bind=database.engine)
     yield

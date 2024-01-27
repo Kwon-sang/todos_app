@@ -36,7 +36,7 @@ def filtering_condition_creator(model, **kwargs) -> list[Any]:
 
 class DB:
     @classmethod
-    async def retrieve_all(cls, model, /, **kwargs) -> list[Any]:
+    def retrieve_all(cls, model, /, **kwargs) -> list[Any]:
         db: Session = next(get_db())
         # If not exist filtering condition, Do retrieve all
         if not kwargs:
@@ -47,7 +47,7 @@ class DB:
             return db.query(model).filter(*conditions).all()
 
     @classmethod
-    async def retrieve_one(cls, model, /, **kwargs) -> Any:
+    def retrieve_one(cls, model, /, **kwargs) -> Any:
         db: Session = next(get_db())
         # At least one filtering option required
         if not kwargs:
@@ -59,7 +59,7 @@ class DB:
         return result
 
     @classmethod
-    async def create(cls, model, body: BaseModel, /,  **kwargs) -> Any:
+    def create(cls, model, body: BaseModel, /,  **kwargs) -> Any:
         db: Session = next(get_db())
         new_model = model(**body.model_dump(), **kwargs)
         db.add(new_model)
@@ -67,7 +67,7 @@ class DB:
         return new_model
 
     @classmethod
-    async def update(cls, model, body: BaseModel, /,  **kwargs) -> None:
+    def update(cls, model, body: BaseModel, /,  **kwargs) -> None:
         db: Session = next(get_db())
         # At least one filtering option required
         if not kwargs:
@@ -79,7 +79,7 @@ class DB:
         db.commit()
 
     @classmethod
-    async def patch(cls, model, target: dict, **kwargs) -> None:
+    def patch(cls, model, target: dict, **kwargs) -> None:
         db: Session = next(get_db())
         # At least one filtering option required
         if not kwargs:
@@ -91,7 +91,7 @@ class DB:
         db.commit()
 
     @classmethod
-    async def delete(cls, model, /, **kwargs) -> None:
+    def delete(cls, model, /, **kwargs) -> None:
         db: Session = next(get_db())
         conditions = filtering_condition_creator(model, **kwargs)
         db.query(model).filter(*conditions).delete()

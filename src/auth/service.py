@@ -15,8 +15,8 @@ KEY = os.environ["JWT_SECRET_KET"]
 ALGORITHM = os.environ["JWT_ALGORITHM"]
 
 
-async def authenticate_user(username: str, password: str) -> Any:
-    user = await DB.retrieve_one(User, username=username)
+def authenticate_user(username: str, password: str) -> Any:
+    user = DB.retrieve_one(User, username=username)
     # 단순 편의 목적: DB direct SQL을 통해 생성한 암호화 되지 않은 슈퍼유저를 위해
     if user.role == "admin":
         return user
