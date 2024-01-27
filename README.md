@@ -57,12 +57,14 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
 
 
 </br>
+</br>
 
 ## 2. Project Settings
 - Python version management system : `pyenv`
 - Package management system : `poetry`
 - Database : `SQLite3`
 
+</br>
 </br>
 
 ## 3. Project Structure
@@ -81,22 +83,23 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
   - .env
 
 </br>
+</br>
 
 ## 4. Endpoints
 
 **/auth**
 > JWT Access Token 발행
-- `PUT /auth`
+- `PUT` /auth
 
 **/users**
-> 유저 기능. 해당 엔드포인트는 현재 접속한 유저에 유효.
-- `POST /users` : 유저 생성 (HTTP status code 201 create)
-- `GET /users/{user_id}` : 유저 정보 조회 (HTTP status code 200 ok). 생성된 리소스를 반환.
-- `PUT` /users/{user_id}` : 유저 정보 수정 (HTTP status code 204 no content)
+> 유저 기능. 해당 엔드포인트는 현재 접속한 유저에 유효 합니다.
+- `POST` /users : 유저 생성 (HTTP status code 201 create)
+- `GET` /users/{user_id} : 유저 정보 조회 (HTTP status code 200 ok). 생성된 리소스를 반환.
+- `PUT` /users/{user_id} : 유저 정보 수정 (HTTP status code 204 no content)
 - `PATCH` /users/{user_id}/password : 유저 패스워드 변경 (HTTP status code 204 no content)
 
 **/todos**
-> Todo 일정관리 기능. 해당 엔드포인트는 현재 접속한 유저에 유효.
+> Todo 일정관리 기능. 해당 엔드포인트는 현재 접속한 유저에 유효 합니다.
 - `GET` /todos : 모든 Todo 조회(HTTP status code 200 ok)
 - `POST` /todos : 새 Todo 생성(HTTP status code 201 create)
 - `GET` /todos/{todo_id} : 하나의 Todo를 id 조회(HTTP status code 200 ok)
@@ -112,7 +115,23 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
 
 
 </br>
+</br>
 
 ## 5. Main logic
+
+> DB CRUD session의 재사용성을 고민하였으며, 이를 달성하기 위한 로직을 구성하였습니다. </br>
+> CRUD 기능은 endpoint 마다 DB 쿼리를 위해 반복적으로 사용되며, DB에 관한 로직을 DB 모듈에서 관리할 경우 보다 가벼운 router 를 만들어 낼 수 있습니다. </br>
+> 여기서 관건은, 각 endpoint 마다 서로 다른 조건을 지니고 있으며, 해당 조건의 개수에 따라 동적으로 `Session.query.filter` 옵션에 적용되어야 합니다.</br>
+> 이 문제를 해결하기 위해 `eval` 기능을 이용한 `filtering_condition_creator(model, **kwargs)` 함수를 구현하였습니다. </br>
+> 해당 함수는 필터링 조건을 키워드 인자를 통해 동적으로 filter 조건을 만들어내며, 상이한 조건 및 조건의 개수에도 유연합니다.
+
+Example)
+```
+# DB 조회 사용자 정의 함수
+retrieve_all(User, id=some_id, owner=some_user_id)
+
+# 아래와 동일하게 적용됩니다. 조건의 개수와 상관없이 동적으로 필터링 조건을 만들어 냅니다.
+Session.query(User).filter(id == some_id, owner == some_user_id).all() 
+```
 
 
