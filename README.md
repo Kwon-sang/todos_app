@@ -13,6 +13,7 @@
 
 ## Introductions
 Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케이션 API 서버 프로젝트 입니다.
+
 ---
 
  #### ✔️프로젝트 구성에 대하여
