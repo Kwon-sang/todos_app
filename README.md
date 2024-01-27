@@ -7,14 +7,13 @@
 - 1.API Web Page (OpenAPI)
 - 2.Project Settings
 - 3.Project Structure
-- 4.Main Logic
+- 4.Endpoints
+- 5.Main Logic
 
 </br>
 
 ## Introductions
 Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케이션 API 서버 프로젝트 입니다.
-
----
 
  #### ✔️프로젝트 구성에 대하여
 >프로젝트 패키지의 구성은 RESTful API의 관점에서 고민하여, 각 **엔드포인트의 루트 리소스 관점**으로 구성하였습니다.</br>
@@ -80,5 +79,18 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
   - poetry.lock
   - pyproject.toml
   - .env
+
+</br>
+
+## 4. Endpoints
+
+**/auth**
+> JWT Access Token 발행 endpoint
+
+- `**PUT** /auth`
+
+**/users**
+> 유저 기능. 이 엔드포인트는 현재 접속한 유저에 유효합니다.
+> 회원 가입, 정보 조회, 비밀번호 변경, 유저 정보 수정.
 
 
