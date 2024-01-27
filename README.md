@@ -7,7 +7,9 @@
 - 1.API Web Page (OpenAPI)
 - 2.Project Settings
 - 3.Project Structure
-- 4.소개하고 싶은 Main Logic
+- 4.Main Logic
+
+</br>
 
 ## Intro
 Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케이션 API 서버 프로젝트 입니다.
@@ -46,15 +48,16 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
 > 기능을 변경하고, 리팩토링 함에 있어서 일일히 웹페이지를 통해 기능을 테스트 하는것에 한계를 느끼게 되었습니다.
 > 따라서, `pytest`를 통해 테스트 로직을 구성하였으며, 빠르게 기능 변경의 동작을 확인할 수 있도록 하였습니다.
 
+</br>
 
-
-
-## 1. Project Settings
+## 2. Project Settings
 - Python version management system : `pyenv`
 - Package management system : `poetry`
 - Database : `SQLite3`
 
-## 2. Project Structure
+</br>
+
+## 3. Project Structure
 - Project root
   - src
     - auth/
@@ -69,14 +72,4 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
   - pyproject.toml
   - .env
 
-> 
-> 
-
-Project Structure
-Test
-schma model 분리
-
-OpenAPI document page 개선
-- 스키마
-- 등등
 
