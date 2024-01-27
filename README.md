@@ -3,7 +3,7 @@
 ---
 
 ## Contents
-- Intro
+- Introductions
 - 1.API Web Page (OpenAPI)
 - 2.Project Settings
 - 3.Project Structure
@@ -11,8 +11,9 @@
 
 </br>
 
-## Intro
+## Introductions
 Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케이션 API 서버 프로젝트 입니다.
+---
 
  #### ✔️프로젝트 구성에 대하여
 >프로젝트 패키지의 구성은 RESTful API의 관점에서 고민하여, 각 **엔드포인트의 루트 리소스 관점**으로 구성하였습니다.</br>
