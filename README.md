@@ -15,7 +15,7 @@
 Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케이션 API 서버 프로젝트 입니다.
 
  #### ✔️프로젝트 구성에 대하여
->프로젝트 패키지의 구성은 RESTful API의 관점에서 고민하여, 각 엔드포인트의 루트 리소스 관점으로 구성하였습니다.</br>
+>프로젝트 패키지의 구성은 RESTful API의 관점에서 고민하여, 각 **엔드포인트의 루트 리소스 관점**으로 구성하였습니다.</br>
 >API 리소스 루트는 기능에 따라, `/admin`, `/auth`, `/todos`, `/users` 로 구분됩니다. </br>
 >따라서, 프로젝트 패키지 또한 이러한 형태로 구성하여 관리가 용이하도록 구성하였습니다.
 
@@ -47,6 +47,13 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
 #### ✔️ `pytest`를 통한 Endpoint testing
 > 기능을 변경하고, 리팩토링 함에 있어서 일일히 웹페이지를 통해 기능을 테스트 하는것에 한계를 느끼게 되었습니다.
 > 따라서, `pytest`를 통해 테스트 로직을 구성하였으며, 빠르게 기능 변경의 동작을 확인할 수 있도록 하였습니다.
+
+</br>
+
+## 1. API Web Page (OpenAPI)
+<img width="1200" alt="image" src="https://github.com/Kwon-sang/todos_app/assets/115248448/3337fa03-800f-4251-80e6-5d33d006f7a3">
+<img width="1184" alt="image" src="https://github.com/Kwon-sang/todos_app/assets/115248448/3bee2438-22f8-4ef0-ae5f-736a88c44b52">
+
 
 </br>
 
