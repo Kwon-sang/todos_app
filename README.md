@@ -87,7 +87,7 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
 **/auth**
 > JWT Access Token 발행 endpoint
 
-- `**PUT** /auth`
+- **PUT** /auth
 
 **/users**
 > 유저 기능. 이 엔드포인트는 현재 접속한 유저에 유효합니다.
