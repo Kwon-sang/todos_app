@@ -121,7 +121,7 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
 
 >- DB CRUD session의 재사용성을 고민하였으며, 이를 달성하기 위한 로직을 구성하였습니다. </br>
 >- CRUD 기능은 endpoint 마다 DB 쿼리를 위해 반복적으로 사용되며, DB에 관한 로직을 DB 모듈에서 관리할 경우 보다 가벼운 router 를 만들어 낼 수 있습니다. </br>
->- 여기서 관건은, 각 endpoint 마다 서로 다른 조건을 지니고 있으며, 해당 조건의 개수에 따라 동적으로 `Session.query.filter` 옵션에 적용되어야 합니다.</br>
+>- 여기서 관건은, 각 endpoint 마다 서로 다른 조회 조건을 가질 수 있으며 이러한 상이한 조건에 대해서도 유연해야 합니다. 해당 조건의 개수에 따라 동적으로 `Session.query.filter` 옵션에 적용되어야 합니다.</br>
 >- 이 문제를 해결하기 위해 `eval` 기능을 이용한 `filtering_condition_creator(model, **kwargs)` 함수를 구현하였습니다. </br>
 >- 해당 함수는 필터링 조건을 키워드 인자를 통해 동적으로 filter 조건을 만들어내며, 상이한 조건 및 조건의 개수에도 유연합니다.
 
