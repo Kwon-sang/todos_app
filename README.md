@@ -85,12 +85,34 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
 ## 4. Endpoints
 
 **/auth**
-> JWT Access Token 발행 endpoint
-
-- **PUT** /auth
+> JWT Access Token 발행
+- `PUT /auth`
 
 **/users**
-> 유저 기능. 이 엔드포인트는 현재 접속한 유저에 유효합니다.
-> 회원 가입, 정보 조회, 비밀번호 변경, 유저 정보 수정.
+> 유저 기능. 해당 엔드포인트는 현재 접속한 유저에 유효.
+- `POST /users` : 유저 생성 (HTTP status code 201 create)
+- `GET /users/{user_id}` : 유저 정보 조회 (HTTP status code 200 ok). 생성된 리소스를 반환.
+- `PUT` /users/{user_id}` : 유저 정보 수정 (HTTP status code 204 no content)
+- `PATCH` /users/{user_id}/password : 유저 패스워드 변경 (HTTP status code 204 no content)
+
+**/todos**
+> Todo 일정관리 기능. 해당 엔드포인트는 현재 접속한 유저에 유효.
+- `GET` /todos : 모든 Todo 조회(HTTP status code 200 ok)
+- `POST` /todos : 새 Todo 생성(HTTP status code 201 create)
+- `GET` /todos/{todo_id} : 하나의 Todo를 id 조회(HTTP status code 200 ok)
+- `PUT` /todos/{todo_id} : Todo 리소스 수정(HTTP status code 204 no content)
+- `DELETE` /todos/{todo_id} : Todo 리소스 제거(HTTP status code 204 no content)
+
+**/admin**
+> Administor 기능. 해당 엔드포인트는 "admin" role을 가진 유저에 한함. (일반 유저 role : "user")
+- `GET` /admin/users : 시스템 내 모든 유저 정보 조회 (HTTP status code 200 ok)
+- `GET` /admin/todos : 시스템 내 모든 Todo 정보 조회 (HTTP status code 200 ok)
+- `PATCH` /admin/{user_id}/role : 유저 권한 변경 (HTTP status code 204 no content)
+- `PATCH` /admin/{user_id}/active : 유저 활성화 상태 변경 (HTTP status code 204 no content)
+
+
+</br>
+
+## 5. Main logic
 
 
