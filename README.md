@@ -141,25 +141,25 @@
 
 **/users**
 > 유저 기능. 해당 엔드포인트는 현재 접속한 유저에 유효 합니다.
-- `POST` /users : 유저 생성 (HTTP status code 201 create)
-- `GET` /users/{user_id} : 유저 정보 조회 (HTTP status code 200 ok). 생성된 리소스를 반환.
-- `PUT` /users/{user_id} : 유저 정보 수정 (HTTP status code 204 no content)
-- `PATCH` /users/{user_id}/password : 유저 패스워드 변경 (HTTP status code 204 no content)
+- `POST` /users  ----- 유저 생성 (HTTP status code 201 create)
+- `GET` /users/{user_id} ----- 유저 정보 조회 (HTTP status code 200 ok). 생성된 리소스를 반환.
+- `PUT` /users/{user_id} ----- 유저 정보 수정 (HTTP status code 204 no content)
+- `PATCH` /users/{user_id}/password ----- 유저 패스워드 변경 (HTTP status code 204 no content)
 
 **/todos**
 > Todo 일정관리 기능. 해당 엔드포인트는 현재 접속한 유저에 유효 합니다.
-- `GET` /todos : 모든 Todo 조회(HTTP status code 200 ok)
-- `POST` /todos : 새 Todo 생성(HTTP status code 201 create)
-- `GET` /todos/{todo_id} : 하나의 Todo를 id 조회(HTTP status code 200 ok)
-- `PUT` /todos/{todo_id} : Todo 리소스 수정(HTTP status code 204 no content)
-- `DELETE` /todos/{todo_id} : Todo 리소스 제거(HTTP status code 204 no content)
+- `GET` /todos ----- 모든 Todo 조회(HTTP status code 200 ok)
+- `POST` /todos ----- 새 Todo 생성(HTTP status code 201 create)
+- `GET` /todos/{todo_id} ----- 하나의 Todo를 id 조회(HTTP status code 200 ok)
+- `PUT` /todos/{todo_id} ----- Todo 리소스 수정(HTTP status code 204 no content)
+- `DELETE` /todos/{todo_id} ----- Todo 리소스 제거(HTTP status code 204 no content)
 
 **/admin**
 > Administor 기능. 해당 엔드포인트는 "admin" role을 가진 유저에 한함. (일반 유저 role : "user")
-- `GET` /admin/users : 시스템 내 모든 유저 정보 조회 (HTTP status code 200 ok)
-- `GET` /admin/todos : 시스템 내 모든 Todo 정보 조회 (HTTP status code 200 ok)
-- `PATCH` /admin/{user_id}/role : 유저 권한 변경 (HTTP status code 204 no content)
-- `PATCH` /admin/{user_id}/active : 유저 활성화 상태 변경 (HTTP status code 204 no content)
+- `GET` /admin/users ----- 시스템 내 모든 유저 정보 조회 (HTTP status code 200 ok)
+- `GET` /admin/todos ----- 시스템 내 모든 Todo 정보 조회 (HTTP status code 200 ok)
+- `PATCH` /admin/{user_id}/role ----- 유저 권한 변경 (HTTP status code 204 no content)
+- `PATCH` /admin/{user_id}/active ----- 유저 활성화 상태 변경 (HTTP status code 204 no content)
 
 
 
