@@ -80,8 +80,9 @@
 > 따라서, `pytest`를 통해 **테스트 로직을 구성**하였으며, 빠르게 기능 변경의 동작을 확인할 수 있도록 하였습니다.
 
 </br>
+</br>
 
-## 1. API Web Page Image (OpenAPI)
+# API Web Page Image (OpenAPI)
 <img width="1200" alt="image" src="https://github.com/Kwon-sang/todos_app/assets/115248448/3337fa03-800f-4251-80e6-5d33d006f7a3">
 <img width="1184" alt="image" src="https://github.com/Kwon-sang/todos_app/assets/115248448/3bee2438-22f8-4ef0-ae5f-736a88c44b52">
 
