@@ -13,31 +13,36 @@
 </br>
 
 # Introductions
-Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케이션 API 서버 프로젝트 입니다.
+**FastAPI** 를 사용한 일정관리 어플리케이션 API 서버 프로젝트 입니다.
 
 </br>
 
  #### ✔️프로젝트 구성에 대하여
 - 프로젝트 패키지의 구성은 RESTful API의 관점에서 고민하여, 각 **엔드포인트의 루트 리소스 관점**으로 구성하였습니다.
-- > ㅇ
 - API 리소스 루트는 기능에 따라, `/admin`, `/auth`, `/todos`, `/users` 로 구분됩니다.
 - 따라서, 프로젝트 패키지 또한 이러한 형태로 구성하여 관리가 용이하도록 구성하였습니다.
-- 유저에 관한 api를 모델, 로직, 
+- 유저에 관한 api 모델, 로직의 변경 혹은 참조가 필요할 경우, `user` 패키지에 관련된 부분들이 있음을 알 수 있습니다.
+
+</br>
 
  #### ✔️ Model 과 Schema의 분리
->`SQL Model`과 `pydantic Model` 를 구분 하였습니다. </br>
->각각 서로 다른 목적과 책임을 갖기에, </br>
-> ODM 객체인 **SQL Model은 DB layer에 대한 제약조건 책임**을, </br>
->**pydantic Model은 Http reqeust/response data validation layer에 대한 책임**으로 분할하였습니다. </br>
->models 모듈은 `SQLModel` 로, schemas 모듈은 `pydantic.BaseModel` 로 관리합니다.
+>`SQL Model`과 `pydantic Model` 를 구분 하였습니다. `SQL Model`은 ODM(Object Data Mapping) 객체로, `pydantic Model`은 DTO(Data Transfer Object) 및 validator로, 사용 목적을 명확히 분리하고자 하였습니다.</br>
+> ODM 객체인 **SQL Model은 DB layer에 대한 제약조건 책임**을 가집니다. 관계를 정의하며, 유니크 옵션 등 DB 레벨의 제약을 정의합니다. </br>
+>**pydantic Model은 Http reqeust/response data validation layer에 대한 책임**을 가집니다. 가장 먼저 입력값의 스키마 제약을 검증합니다. </br>
+
+</br>
 
  #### ✔️ DB Connection과 JWT Authorization
 >토이 프로젝트 목적으로 사용하기 간편한 SQLite Databse를 사용하여 DB Connection을 구성하였으며, </br>
 >권한/인증을 위해 **JWT Bearer Authentication**을 사용하였습니다.</br>
 
+</br>
+
  #### ✔️ Secrey key 및 동적인 시스템 환경 세팅을 위한 로컬 머신 환경변수 파일 세팅
 >Database URL 및 JWT Secret key 와 같은 보안이 필요한 변수들은 머신 `.env` 파일로 관리할 수 있으며,</br>
 >`.env` 파일에서 `ENVSTATUS` 변수를 통해 **동적으로 개발환경/테스트환경/운영환경의 전환**이 가능하도록 설정하였습니다. </br>
+
+</br>
 
  #### ✔️ 재사용이 빈번한 DB CRUD를 `database.py` 모듈에 위임하여, 유연하고 재사용가능하도록 구성
 > CRUD 기능을 유연하게 확장하기 위해서는 `Session.query(Model).filter(option1, option2, ...)` 와 같이,
@@ -67,6 +72,7 @@ Microservice에 특화 된 **FastAPI** 를 사용한 일정관리 어플리케�
 - Python version management system : `pyenv`
 - Package management system : `poetry`
 - Database : `SQLite3`
+
 
 </br>
 </br>
