@@ -111,7 +111,7 @@
     - auth
       - `routes.py`
       - `schemas.py`
-     - `service.py`
+      - `service.py`
     - admin
       - `routes.py`
     - todos
