@@ -11,7 +11,8 @@
 
 </br>
 
-# Introductions
+## **Introductions**
+
 **FastAPI** 를 사용한 일정관리 어플리케이션 API 서버 프로젝트 입니다.
 
 </br>
