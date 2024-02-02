@@ -62,7 +62,7 @@
 
 > 예를 들어, A, B, C 등의 함수는 Z라는 함수를 공통적으로 이용하되, Z 함수의 인자는 가변적인 boolean expression 인자를 가질 경우 (ex. id == 1, name == '홍길동'), </br>
 > Z 함수를 사용하기 위해, Z 함수의 인자의 개수는 동적으로 할당되어야 하며, 동시에 boolean expression 으로 표현되어야 합니다.</br>
-> 이 동작을 구현하기 위해 `eval` 기능을 이용하여, String 형태로 조작하며 excutable 하도록 하였습니다.
+> 이 동작을 구현하기 위해 `eval` 기능을 이용하여, String 형태로 조작하며 executable 하도록 하였습니다.
 
 [`src/database.py`, `filtering_condition_creator` 함수](https://github.com/Kwon-sang/todos_app/blob/master/src/database.py)
 
