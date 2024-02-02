@@ -39,8 +39,11 @@
 </br>
 
  #### ✔️ Secrey key 및 동적인 시스템 환경 세팅을 위한 로컬 머신 환경변수 파일 세팅
->Database URL 및 JWT Secret key 와 같은 보안이 필요한 변수들은 머신 `.env` 파일로 관리할 수 있으며,</br>
->`.env` 파일에서 `ENVSTATUS` 변수를 통해 **동적으로 개발환경/테스트환경/운영환경의 전환**이 가능하도록 설정하였습니다. </br>
+- 개발환경/운영환경/테스트환경을 동적으로 유연하게 변경될 수 있어야 하며, 또한 SECREY KEY와 같은 환경변수를 외부에 노출되지 않도록 안전하게 보관할 수 있어야 합니다.
+- `setting.py`을 구성하여 `.env` 파일에 정의된 환경변수로 설정한 값들을 읽어들여 환경을 구축합니다.   
+- `.env` 파일에서 `ENVSTATUS` 변수를 통해 **동적으로 개발환경/테스트환경/운영환경의 전환**이 가능하도록 설정하였습니다.
+
+[`src/setting.py`의 링크 입니다.](https://github.com/Kwon-sang/todos_app/blob/master/src/settings.py)
 
 </br>
 
