@@ -109,8 +109,8 @@
 - Project root
   - src
     - auth
-     - `routes.py`
-     - `schemas.py`
+      - `routes.py`
+      - `schemas.py`
      - `service.py`
     - admin
      - `routes.py`
