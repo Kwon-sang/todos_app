@@ -1,6 +1,5 @@
 # [FastAPI] Todos Application API Server Project
 
----
 
 ## Contents
 - Introductions
