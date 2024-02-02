@@ -4,14 +4,15 @@
 
 ## Contents
 - Introductions
-- 1.API Web Page Image (OpenAPI)
-- 2.Project Settings
-- 3.Project Structure
-- 4.Endpoints
+- API Web Page Image (OpenAPI)
+- Project Settings
+- Project Structure
+- Endpoints
 
 </br>
+</br>
 
-## **Introductions**
+# Introductions
 
 **FastAPI** 를 사용한 일정관리 어플리케이션 API 서버 프로젝트 입니다.
 
@@ -87,7 +88,8 @@
 </br>
 </br>
 
-## 2. Project Settings
+# Project Settings
+
 - Python version management system : `pyenv`
 - Package management system : `poetry`
 - Languege : `python 3.11`
@@ -100,7 +102,8 @@
 </br>
 </br>
 
-## 3. Project Structure
+# Project Structures
+
 - Project root
   - src
     - auth
@@ -128,7 +131,7 @@
 </br>
 </br>
 
-## 4. Endpoints
+# Endpoints
 
 **/auth**
 > JWT Access Token 발행
